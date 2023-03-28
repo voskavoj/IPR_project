@@ -3,19 +3,13 @@ let parUrlParams = new URLSearchParams(document.location.search);
 let parStationId = parUrlParams.get("station");
 
 if (parStationId === null)
-    display_no_station_id_given();
+    display_404();
 console.log(parStationId);
 
 
-function display_no_station_id_given()
+function display_404()
 {
-    // todo
-    console.log(`No station ID given!`);
-    // redirect to station list
-    window.setTimeout(function(){window.location.href = "station_list.html";}, 3000);
+    console.log(`No station found or no station ID given! Redirecting to 404.`);
+    window.location.href = "station_404.html";
 }
-function display_station_not_found(station_id)
-{
-    // todo
-    console.log(`Station ${station_id} not found`)
-}
+
