@@ -1,0 +1,77 @@
+/* general styles */
+body {
+    background-color:bisque;
+    color: #333;
+    margin: 0;
+    /* ορίζει font-size 1.8em και line-height 1.8 (άρα θα είναι 1.8 x {ό,τι είναι το font-size})*/
+    /* sets font-size to 1.8em and line-height to 1.8 (so it will be 1.8 x {whatever the font-size is})*/
+    font: 1em / 1 Arial, Helvetica, sans-serif;
+}
+
+a {
+    color: white;
+}
+a:hover, a.selected {
+    color: blueviolet;
+}
+
+li {
+    text-align: center;
+    flex-grow: 1;
+    padding: 10px;
+}
+li:hover, li.selected {
+    background-color: antiquewhite;
+}
+ul {
+    display: flex;
+    list-style: none;
+    background-color: blueviolet;
+}
+label {
+    display: block;
+    margin-bottom: 0.5em;
+}
+input {
+    margin: 3px;
+    padding: 7px;
+}
+
+.logo {
+font-size: 200%;
+padding: 50px 20px;
+/* δοκιμάστε να βγάλετε το auto... το 0 είναι το margin (εξωτερικό περιθώριο πάνω και κάτω) και το auto το εξ. περιώριο δεξιά και αριστερά.
+auto= θα έχει το ίδιο margin δεξιά αριστερά, άρα θα φαίνεται στοιχισμένο στο κέντρο */
+/* try taking out auto... 0 is the margin (outer margin top and bottom) and auto is the outer margin left and right.
+auto= will have the same margin right to left, so it will appear centered */
+margin: 0;
+max-width: 980px;
+}
+
+fieldset {
+    margin-bottom: 2em;
+    border: solid grey 1px;
+}
+
+legend {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 1em;
+}
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 1em;
+}
+.form-double-colspan {
+    grid-column: 1 / -1;
+}
+.form-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px;
+}
+select {
+    padding: 10px;
+}

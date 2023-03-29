@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+	<title>My Page</title>
+	<link href="experiment.css" rel = "stylesheet">
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      crossorigin=""
+    />
+</head>
+<body>
+	<div class="container">
+        <div class="header">
+            <div class="logo">Logo</div>
+            <div class="register">
+                <button>Sign in/Register</button>
+            </div>           
+        </div>
+        <nav>
+          <ul>
+            <li>
+              <a href=""> Gas Stations List</a>
+            </li>
+            <li class="selected">
+              <a class = "selected" href="#" onclick="openNewWindow()">Join as a manager/employee</a>
+            </li>
+            <li>
+              <a href=""> Products & Services</a>
+            </li>
+            <li>
+              <a href="">Contact us</a>
+            </li>
+          </ul>
+        </nav>
+        <div class="main-content">
+          <div class="left-sidebar">Left Sidebar</div>
+          <div class="right-content">
+            <div class="top-right">
+                <div class="top-right-left">
+                    <div id="map"></div>
+                </div>
+                <div class ="top-right-right">
+                    <table>
+                        <caption> Price Table</caption>
+                        <tr>
+                            <th>Gas Type</th>
+                            <th> Price </th>
+                        </tr>
+                        <tr>
+                            <td> Type 1</td>
+                            <td> Price 1</td>
+                        </tr>
+                        <td>
+                            Type 2
+                        </td>
+                        <td>
+                            Price 2
+                        </td>
+                    </table>
+                </div>
+            </div>
+            <div class="bottom-right">
+              <div class="bottom-right-left">
+                <button onclick="openNearWindow()">Find gas stations near me</button>
+              </div>
+              <div class="bottom-right-right">
+                <p> Get Offer Now!</p>
+                <p> Upgrade to Premium!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="main_page.js"></script>
+</body>
+</html>
