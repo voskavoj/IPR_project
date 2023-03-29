@@ -23,6 +23,14 @@ let stations = [];
 
 
 // CLASSES
+/**
+    Class to contain information about a Station, in addition to non-html-related methods
+
+    To be used as an ancestor / core component of HTML-formatting classes where necessary
+    Should contain only methods common to more use cases
+
+    TODO: Move to a separate file (THIS IS THE OG CLASS, ALL CHANGES SHOULD BE DISTRIBUTED FROM HERE)
+ */
 class Station {
     constructor(name, region, prices, opening_hours)
     {
@@ -33,41 +41,7 @@ class Station {
         this.is_nonstop = (this.opening_hours.open === 0 && this.opening_hours.close === 24);
     }
 
-    to_html_table_row()
-    {
-        let node = document.createElement("tr");
-        node.setAttribute('class', `item-station`);
-
-        node.innerHTML = this._to_table([
-            this._is_open_now(),
-            this.name,
-            this.region,
-            this.prices.n95,
-            this.prices.diesel,
-            this._print_opening_hours()], `station.html?station=${this.name}`);
-
-        return node;
-    }
-
-    _to_table(list, link="")
-    {
-        let table = "";
-        let link_start = "";
-        let link_end = "";
-
-        if (link !== "") {
-            link_start = `<a href=${link}>`;
-            link_end = '</a>';
-        }
-
-        for (let i = 0; i < list.length; i++)
-        {
-            table += "<td>" + link_start + list[i] + link_end + "</td>";
-        }
-
-        return table;
-    }
-    _is_open_now()
+    is_open_now()
     {
         let current_time_min = new Date();
         current_time_min = current_time_min.getHours() * 60 + current_time_min.getMinutes();
@@ -80,7 +54,7 @@ class Station {
         //     Station._minutes_to_hh_mm(this.opening_hours.close) > current_time_min);
     }
 
-    _print_opening_hours()
+    print_opening_hours()
     {
         if (this.is_nonstop)
             return "nonstop";
@@ -97,6 +71,48 @@ class Station {
     static _minutes_to_hh_mm(minutes)
     {
         return Math.floor(minutes / 60) + ":" + (minutes % 60);
+    }
+}
+
+class DisplayStationListItem {
+    constructor(station)
+    {
+        this.station = station;
+    }
+
+    to_html_table_row()
+    {
+        let node = document.createElement("tr");
+        node.setAttribute('class', `item-station`);
+
+        node.innerHTML = DisplayStationListItem._to_table([
+            this.station.is_open_now(),
+            this.station.name,
+            this.station.region,
+            this.station.prices.n95,
+            this.station.prices.diesel,
+            this.station.print_opening_hours()], `station.html?station=${this.station.name}`);
+
+        return node;
+    }
+
+    static _to_table(list, link="")
+    {
+        let table = "";
+        let link_start = "";
+        let link_end = "";
+
+        if (link !== "") {
+            link_start = `<a href=${link}>`;
+            link_end = '</a>';
+        }
+
+        for (let i = 0; i < list.length; i++)
+        {
+            table += "<td>" + link_start + list[i] + link_end + "</td>";
+        }
+
+        return table;
     }
 }
 
@@ -119,9 +135,10 @@ function fake_read_db()
             db_entry[1],
             {"n95": db_entry[2], "diesel": db_entry[3]},
             {"open": db_entry[4], "close": db_entry[5]});
-        stations.push(station);
+        stations.push(new DisplayStationListItem(station));
     }
 }
+
 
 // PAGE FUNCTIONS
 function on_page_load()

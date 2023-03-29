@@ -29,6 +29,8 @@ const fake_station_db = [
 // EVENT LISTENERS
 
 // CLASSES
+// todo: move to import, remove from here
+// duplicate of class, original in station_list.js
 class Station {
     constructor(name, region, prices, opening_hours)
     {
@@ -39,41 +41,7 @@ class Station {
         this.is_nonstop = (this.opening_hours.open === 0 && this.opening_hours.close === 24);
     }
 
-    to_html_table_row()
-    {
-        let node = document.createElement("tr");
-        node.setAttribute('class', `item-station`);
-
-        node.innerHTML = this._to_table([
-            this._is_open_now(),
-            this.name,
-            this.region,
-            this.prices.n95,
-            this.prices.diesel,
-            this._print_opening_hours()], `station.html?station=${this.name}`);
-
-        return node;
-    }
-
-    _to_table(list, link="")
-    {
-        let table = "";
-        let link_start = "";
-        let link_end = "";
-
-        if (link !== "") {
-            link_start = `<a href=${link}>`;
-            link_end = '</a>';
-        }
-
-        for (let i = 0; i < list.length; i++)
-        {
-            table += "<td>" + link_start + list[i] + link_end + "</td>";
-        }
-
-        return table;
-    }
-    _is_open_now()
+    is_open_now()
     {
         let current_time_min = new Date();
         current_time_min = current_time_min.getHours() * 60 + current_time_min.getMinutes();
@@ -86,7 +54,7 @@ class Station {
         //     Station._minutes_to_hh_mm(this.opening_hours.close) > current_time_min);
     }
 
-    _print_opening_hours()
+    print_opening_hours()
     {
         if (this.is_nonstop)
             return "nonstop";
@@ -119,7 +87,7 @@ class DisplayStation {
         fldPricesN95.innerHTML = this.station.prices.n95;
         fldPricesDiesel.innerHTML = this.station.prices.diesel;
         fldLocation.innerHTML = this.station.region;
-        fldOpHours.innerHTML = this.station._print_opening_hours();
+        fldOpHours.innerHTML = this.station.print_opening_hours();
     }
 
 
