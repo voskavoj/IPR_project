@@ -5,10 +5,9 @@ let parStationId = parUrlParams.get("station");
 // fields to fill
 let fldName = document.querySelector("#station-name");
 let fldImage = document.querySelector("#station-image");
-let fldLocation = document.querySelector("#station-location");
-let fldPrices = document.querySelector("#station-prices");
-    let fldPricesN95 = document.querySelector("#station-prices-n95");
-    let fldPricesDiesel = document.querySelector("#station-prices-diesel");
+let fldRegion = document.querySelector("#station-region");
+let fldPricesN95 = document.querySelector("#station-prices-n95");
+let fldPricesDiesel = document.querySelector("#station-prices-diesel");
 let fldOpHours = document.querySelector("#station-opening-hours");
 
 
@@ -86,7 +85,7 @@ class DisplayStation {
         fldName.innerHTML = this.station.name;
         fldPricesN95.innerHTML = this.station.prices.n95;
         fldPricesDiesel.innerHTML = this.station.prices.diesel;
-        fldLocation.innerHTML = this.station.region;
+        fldRegion.innerHTML = this.station.region;
         fldOpHours.innerHTML = this.station.print_opening_hours();
     }
 

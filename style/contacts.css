@@ -8,12 +8,10 @@
 
 /* display container items bellow each other when screen gets smaller */
 @media screen and (max-width: 800px) {
-    .container { flex-direction: column; }         /* NEW */
-    /*.container:nth-child(2) > .pic { order: -1; }  !* NEW *!*/
+    .container { flex-direction: column; }
 }
 
 .map {
-    /*display: flex;*/
     margin-right: 30px;
 }
 
