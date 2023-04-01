@@ -3,12 +3,12 @@ let parUrlParams = new URLSearchParams(document.location.search);
 let parStationId = parUrlParams.get("station");
 
 // fields to fill
-let fldName = document.querySelector("#station-name");
-let fldImage = document.querySelector("#station-image");
-let fldRegion = document.querySelector("#station-region");
-let fldPricesN95 = document.querySelector("#station-prices-n95");
-let fldPricesDiesel = document.querySelector("#station-prices-diesel");
-let fldOpHours = document.querySelector("#station-opening-hours");
+let fldName = document.querySelector("#fld-name");
+let fldImage = document.querySelector("#fld-image");
+let fldRegion = document.querySelector("#fld-region");
+let fldPricesN95 = document.querySelector("#fld-prices-n95");
+let fldPricesDiesel = document.querySelector("#fld-prices-diesel");
+let fldOpHours = document.querySelector("#fld-opening-hours");
 
 
 // GLOBALS
@@ -130,6 +130,11 @@ function render_station(station_id)
 
 }
 
+function copy_gps_to_clipboard()
+{
+    let copyText = "33333";
+    navigator.clipboard.writeText(copyText);
+}
 
 // PAGE FUNCTIONS
 function display_404()
