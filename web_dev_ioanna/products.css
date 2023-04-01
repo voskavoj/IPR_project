@@ -1,4 +1,4 @@
-  body {
+body {
     margin: 0;
     padding: 0;
     height: 100%;
@@ -19,7 +19,7 @@
     position: sticky;
     z-index: 9999;
   }
-
+  
   .logo {
     background-color:lightcyan;
     display: flex;
@@ -27,7 +27,7 @@
     flex: 1 1 100%; /* Adjust this value to change the height */
     top: 0;
     position: sticky;
-    /*z-index: 9998; */
+    z-index: 9999;
   }
 
   .register {
@@ -38,7 +38,7 @@
     align-items: center;    /* vertically */
     top: 0;
     position: sticky;
-    /*z-index: 9998; */
+    z-index: 9999;
 }
 
 button {
@@ -77,18 +77,19 @@ button {
     background-color: lightsalmon;
   }
 
-  #map {
-  /*  height: 400px;
-    width: 600px; */
-    flex: 1;
-  }
+img {
+    height: 100%;
+    width: 400px;
+}
   
   .top-right-right {
     flex: 0.2;
     background-color: lightgoldenrodyellow;
     display: flex;
-    justify-content: center; /* horizonitcally */
-    align-items: center;    /* vertically */
+    /*justify-content: center;  horizonitcally */
+    /*align-items: center;     vertically */
+    padding: 0px;
+    margin: 0px;
 }
 
 table, th, td, caption {
