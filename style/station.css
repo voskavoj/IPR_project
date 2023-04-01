@@ -1,0 +1,100 @@
+/*html, body {*/
+/*    height:100%;*/
+/*}*/
+
+body {
+    background: white;
+}
+
+.station-image {
+    display: flex;
+    width: 100%;
+    min-height: 300px;
+    background-image: url("../img/sample_gs.JPG");
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-position: center center;
+
+    position: relative;
+
+}
+
+.station-name {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    align-self: baseline;
+    font-size: xxx-large;
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.58);
+
+    padding-right: 30px;
+    border-top-right-radius: 30px;
+
+    color: rgba(4, 101, 170, 0.51);
+    font-style: italic;
+}
+
+#station-name {
+    font-style: normal;
+    text-transform: uppercase;
+    color: #0465aa;
+}
+
+.station-prices {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+
+    background-color: rgba(255, 255, 255, 0.58);
+
+    padding-left: 10px;
+    padding-right: 10px;
+    border-top-left-radius: 30px;
+}
+
+.lower-bar {
+    display: flex;
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* display container items bellow each other when screen gets smaller */
+@media screen and (max-width: 800px) {
+    .lower-bar { flex-direction: column; }
+}
+
+.station-location, .station-services-updates {
+    width: 50%;
+    display: flex;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.map iframe {
+    height: 100%;
+    min-height: 300px;
+    min-width: 300px;
+    aspect-ratio: 1 / 1;
+    scroll-behavior: unset;
+
+    border: 1px transparent;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius:10px;
+}
+
+.station-opening-hours {
+    margin-top: 10px;
+    margin-left: 30px;
+}
+
+.station-services-updates {
+    flex-direction: column;
+    margin-left: 10px;
+    padding-left: 10px;
+}
+
+/*img {*/
+/*    max-width: 500px;*/
+/*}*/

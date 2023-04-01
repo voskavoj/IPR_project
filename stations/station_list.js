@@ -62,6 +62,14 @@ class Station {
             return this.opening_hours.open + " - " + this.opening_hours.close;
     }
 
+    print_is_open_now()
+    {
+        if (this.is_open_now())
+            return "&#x2714;";
+        else
+            return "&#x2718;";
+    }
+
     static _hh_mm_to_minutes(hh_mm)
     {
         let split = hh_mm.split(':');
@@ -86,7 +94,7 @@ class DisplayStationListItem {
         node.setAttribute('class', `item-station`);
 
         node.innerHTML = DisplayStationListItem._to_table([
-            this.station.is_open_now(),
+            this.station.print_is_open_now(),
             this.station.name,
             this.station.region,
             this.station.prices.n95,
@@ -115,6 +123,8 @@ class DisplayStationListItem {
         return table;
     }
 }
+
+
 
 function construct_table()
 {

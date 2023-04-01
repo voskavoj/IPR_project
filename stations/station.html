@@ -3,16 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>Station</title>
+    <link href="../style/common.css" rel="stylesheet">
+    <link href="../style/station.css" rel="stylesheet">
 </head>
 <body>
-    <div id="station-name"></div>
-    <div id="station-image"></div>
-    <div id="station-location"></div>
-    <div id="station-prices">
-        <p>N95: <span id="station-prices-n95"></span></p>
-        <p>Diesel: <span id="station-prices-diesel"></span></p>
+    <div class="station-image" id="station-image">
+        <div class="station-name">
+            <span id="station-name"></span> // <span id="station-region"></span>
+        </div>
+        <div class="station-prices">
+            <p>N95: <span id="station-prices-n95"></span></p>
+            <p>Diesel: <span id="station-prices-diesel"></span></p>
+        </div>
     </div>
-    <div id="station-opening-hours"></div>
+
+    <div class="lower-bar">
+        <div class="station-location">
+            <div class="map" id="station-map">
+            <!--todo--> <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=21.73380017280579%2C38.24789600386227%2C21.744850873947147%2C38.25232782929022&amp;layer=mapnik&amp;marker=38.250111950356754%2C21.739325523376465"></iframe>
+            </div>
+            <div class="station-opening-hours">Opening hours: <span id="station-opening-hours"></span></div>
+            <div class="station-address"></div><span class="station-address"></span>
+        </div>
+
+        <div class="station-services-updates">
+            <h2>Services</h2>
+                todo db link<br>
+
+            <h2>Updates</h2>
+                todo db link<br>
+        </div>
+    </div>
 
     <script src="station.js"></script>
 </body>
