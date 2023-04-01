@@ -31,10 +31,3 @@ map.on('locationfound', onLocationFound);
 map.on('locationerror', onLocationError);
 
 map.locate({setView: true, maxZoom: 16});
-
-function openNewWindow() {
-  window.open("become_manager.html");
-}
-function openNearWindow() {
-  window.open("near_station.html");
-}
