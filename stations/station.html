@@ -7,32 +7,41 @@
     <link href="../style/station.css" rel="stylesheet">
 </head>
 <body>
-    <div class="station-image" id="station-image">
+    <div class="station-image" id="fld-image">
         <div class="station-name">
-            <span id="station-name"></span> // <span id="station-region"></span>
+            <span id="fld-name"></span> // <span id="fld-region"></span>
         </div>
         <div class="station-prices">
-            <p>N95: <span id="station-prices-n95"></span></p>
-            <p>Diesel: <span id="station-prices-diesel"></span></p>
+            <p>N95: <span id="fld-prices-n95"></span></p>
+            <p>Diesel: <span id="fld-prices-diesel"></span></p>
         </div>
     </div>
 
-    <div class="lower-bar">
-        <div class="station-location">
-            <div class="map" id="station-map">
-            <!--todo--> <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=21.73380017280579%2C38.24789600386227%2C21.744850873947147%2C38.25232782929022&amp;layer=mapnik&amp;marker=38.250111950356754%2C21.739325523376465"></iframe>
-            </div>
-            <div class="station-opening-hours">Opening hours: <span id="station-opening-hours"></span></div>
-            <div class="station-address"></div><span class="station-address"></span>
+    <div class="info-bar">
+        <div class="station-map">
+<!--            <div class="map" id="fld-map">-->
+            <!--todo--> <iframe class="map" src="https://www.openstreetmap.org/export/embed.html?bbox=21.73380017280579%2C38.24789600386227%2C21.744850873947147%2C38.25232782929022&amp;layer=mapnik&amp;marker=38.250111950356754%2C21.739325523376465"></iframe>
+<!--            </div>-->
         </div>
 
-        <div class="station-services-updates">
+        <div class="station-text-field">
+            Station is currently
+            Opening hours: <span id="fld-opening-hours"></span>
+
+            <h2>Address</h2>
+            <span id="fld-contact"></span>
+            GPS: <span id="fld-gps">SOME GPS</span><button class="btn-copy" onclick="copy_gps_to_clipboard()">&#x29C9;</button>
+            <span id="fld-address"></span>
+        </div>
+
+        <div class="station-text-field">
             <h2>Services</h2>
                 todo db link<br>
 
             <h2>Updates</h2>
                 todo db link<br>
         </div>
+
     </div>
 
     <script src="station.js"></script>
