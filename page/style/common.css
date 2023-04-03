@@ -66,4 +66,5 @@ body {
 
 .content-box address {
     font-style: normal;
+    white-space: pre-line;
 }

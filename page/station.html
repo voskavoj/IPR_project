@@ -24,22 +24,25 @@
 <!--            </div>-->
         </div>
 
-        <div class="station-text-field">
-            Station is currently
-            Opening hours: <span id="fld-opening-hours"></span>
+        <div class="content-box">
+            <p>Station is currently <span id="fld-is-open"></span>.</p>
+            <p>Opening hours: every day <span id="fld-opening-hours"></span>.</p>
 
             <h2>Address</h2>
-            <span id="fld-contact"></span>
-            GPS: <span id="fld-gps">SOME GPS</span><button class="btn-copy" onclick="copy_gps_to_clipboard()">&#x29C9;</button>
-            <span id="fld-address"></span>
+            <address><span id="fld-address"></span></address>
+
+            <p>GPS: <span id="fld-gps"></span> <button class="btn-copy" onclick="copy_gps_to_clipboard()">&#x29C9;</button></p>
+
+            <h2>Contact</h2>
+            <address>Manager: <span id="fld-manager"></span>
+                Phone: <span id="fld-phone"></span>
+                Email: <span id="fld-email"></span>
+            </address>
         </div>
 
-        <div class="station-text-field">
-            <h2>Services</h2>
-                todo db link<br>
-
-            <h2>Updates</h2>
-                todo db link<br>
+        <div class="content-box">
+            <h2>Announcements</h2>
+                <span id="fld-about"></span>
         </div>
 
     </div>

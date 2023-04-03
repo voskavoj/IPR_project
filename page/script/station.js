@@ -9,21 +9,30 @@ let fldRegion = document.querySelector("#fld-region");
 let fldPricesN95 = document.querySelector("#fld-prices-n95");
 let fldPricesDiesel = document.querySelector("#fld-prices-diesel");
 let fldOpHours = document.querySelector("#fld-opening-hours");
+let fldAddress = document.querySelector("#fld-address");
+let fldGps = document.querySelector("#fld-gps");
+let fldPhone = document.querySelector("#fld-phone");
+let fldEmail = document.querySelector("#fld-email");
+let fldIsOpen = document.querySelector("#fld-is-open");
+let fldAbout = document.querySelector("#fld-about");
+let fldManager = document.querySelector("#fld-manager");
 
 
 // GLOBALS
 const fake_station_db = [
-    ["Able", "Achaios", 1.997, 1.654, 6, 22],
-    ["Baker", "Achaios", 1.998, 1.634, 15, 22],
-    ["Charlie", "Pelopones", 1.954, 1.665, 0, 24],
-    ["Dog", "Pelopones", 1.936, 1.646, 0, 24],
-    ["Easy", "Pelopones", 1.868, 1.634, 0, 24],
-    ["Fox", "Korinth", 1.900, 1.643, 23, 24],
-    ["George", "Korinth", 1.902, 1.655, 3, 23],
-    ["How", "Korinth", 1.990, 1.694, 13, 22],
-    ["Item", "Patras", 1.944, 1.599, 12, 22],
-    ["Jig", "Patras", 1.995, 1.633, 0, 24],
+    ["Able",    "Achaios",  1.997, 1.654, 6,  22, 14.556464, 52.665445, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
+    ["Baker",   "Achaios",  1.998, 1.634, 15, 22, 14.556464, 52.665445, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
+    ["Charlie", "Pelopones",1.954, 1.665, 0,  24, 14.556464, 52.665445, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
+    ["Dog",     "Pelopones",1.936, 1.646, 0,  24, 14.556464, 52.665445, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
+    ["Easy",    "Pelopones",1.868, 1.634, 0,  24, 14.556464, 52.665445, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
+    ["Fox",     "Korinth",  1.900, 1.643, 23, 24, 14.556464, 52.665445, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
+    ["George",  "Korinth",  1.902, 1.655, 3,  23, 14.556464, 52.665445, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
+    ["How",     "Korinth",  1.990, 1.694, 13, 22, 14.556464, 52.665445, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
+    ["Item",    "Patras",   1.944, 1.599, 12, 22, 14.556464, 52.665445, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
+    ["Jig",     "Patras",   1.995, 1.633, 0,  24, 14.556464, 52.665445, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
 ];
+
+let active_station = null;
 
 // EVENT LISTENERS
 
@@ -31,26 +40,29 @@ const fake_station_db = [
 // todo: move to import, remove from here
 // duplicate of class, original in station_list.js
 class Station {
-    constructor(name, region, prices, opening_hours)
+    constructor(name, region, prices, opening_hours, contact, gps, about="")
     {
         this.name = name;
         this.region = region;
         this.prices = prices;
         this.opening_hours = opening_hours;
+        this.contact = contact;
+        this.gps = gps;
+        this.about = about;
+
         this.is_nonstop = (this.opening_hours.open === 0 && this.opening_hours.close === 24);
     }
 
     is_open_now()
     {
-        let current_time_min = new Date();
-        current_time_min = current_time_min.getHours() * 60 + current_time_min.getMinutes();
+        let current_time = new Date(); // hrs as decimal
+        current_time = current_time.getHours() + current_time.getMinutes() / 60;
+        console.debug(current_time)
 
         if (this.is_nonstop)
             return true;
         else
-            return this.opening_hours.open * 60 < current_time_min && current_time_min < this.opening_hours.close * 60;
-        // return (Station._hh_mm_to_minutes(this.opening_hours.open) < current_time_min &&
-        //     Station._minutes_to_hh_mm(this.opening_hours.close) > current_time_min);
+            return this.opening_hours.open < current_time && current_time < this.opening_hours.close;
     }
 
     print_opening_hours()
@@ -59,6 +71,14 @@ class Station {
             return "nonstop";
         else
             return this.opening_hours.open + " - " + this.opening_hours.close;
+    }
+
+    print_is_open_now()
+    {
+        if (this.is_open_now())
+            return "&#x2714;";
+        else
+            return "&#x2718;";
     }
 
     static _hh_mm_to_minutes(hh_mm)
@@ -87,7 +107,36 @@ class DisplayStation {
         fldPricesDiesel.innerHTML = this.station.prices.diesel;
         fldRegion.innerHTML = this.station.region;
         fldOpHours.innerHTML = this.station.print_opening_hours();
+        fldIsOpen.innerHTML = this._display_is_open();
+        fldPhone.innerHTML = this.station.contact.phone;
+        fldEmail.innerHTML = this.station.contact.email;
+        fldAddress.innerHTML = this.station.contact.address;
+        fldAbout.innerHTML = this._display_about();
+        fldGps.innerHTML = this._display_gps();
+        fldManager.innerHTML = this.station.contact.manager;
     }
+
+    _display_gps()
+    {
+        return this.station.gps[0] + "N, " + this.station.gps[1] + "E";
+    }
+
+    _display_is_open()
+    {
+        if (this.station.is_open_now())
+            return "open"
+        else
+            return "closed"
+    }
+
+    _display_about()
+    {
+        if (this.station.about !== "")
+            return this.station.about;
+        else
+            return "<i>No new announcements</i>";
+    }
+
 
 
 }
@@ -103,7 +152,9 @@ function find_station_in_fake_db(searched_name)
         let station = new Station(db_entry[0],
             db_entry[1],
             {"n95": db_entry[2], "diesel": db_entry[3]},
-            {"open": db_entry[4], "close": db_entry[5]});
+            {"open": db_entry[4], "close": db_entry[5]},
+            {"manager": db_entry[8], "email": db_entry[9], "phone": db_entry[10], "address": db_entry[11]},
+            [db_entry[6], db_entry[7]]);
         stations.push(station);
     }
 
@@ -125,15 +176,14 @@ function render_station(station_id)
         return;
     }
 
-    station = new DisplayStation(station);
-    station.display();
+    active_station = new DisplayStation(station);
+    active_station.display();
 
 }
 
 function copy_gps_to_clipboard()
 {
-    let copyText = "33333";
-    navigator.clipboard.writeText(copyText);
+    navigator.clipboard.writeText(active_station._display_gps());
 }
 
 // PAGE FUNCTIONS
@@ -153,4 +203,3 @@ function on_page_load()
 
 }
 on_page_load(); // init
-

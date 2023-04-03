@@ -4,18 +4,17 @@ const tabStationTable = document.querySelector('#station-table');
 
 // GLOBALS
 const fake_station_db = [
-    ["Able", "Achaios", 1.997, 1.654, 6, 22],
-    ["Baker", "Achaios", 1.998, 1.634, 15, 22],
-    ["Charlie", "Pelopones", 1.954, 1.665, 0, 24],
-    ["Dog", "Pelopones", 1.936, 1.646, 0, 24],
-    ["Easy", "Pelopones", 1.868, 1.634, 0, 24],
-    ["Fox", "Korinth", 1.900, 1.643, 23, 24],
-    ["George", "Korinth", 1.902, 1.655, 3, 23],
-    ["How", "Korinth", 1.990, 1.694, 13, 22],
-    ["Item", "Patras", 1.944, 1.599, 12, 22],
-    ["Jig", "Patras", 1.995, 1.633, 0, 24],
+    ["Able", "Achaios", 1.997, 1.654, 6, 22, 14.556464, 52.665445, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
+    ["Baker", "Achaios", 1.998, 1.634, 15, 22, 14.556464, 52.665445, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
+    ["Charlie", "Pelopones", 1.954, 1.665, 0, 24, 14.556464, 52.665445, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
+    ["Dog", "Pelopones", 1.936, 1.646, 0, 24, 14.556464, 52.665445, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
+    ["Easy", "Pelopones", 1.868, 1.634, 0, 24, 14.556464, 52.665445, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
+    ["Fox", "Korinth", 1.900, 1.643, 23, 24, 14.556464, 52.665445, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
+    ["George", "Korinth", 1.902, 1.655, 3, 23, 14.556464, 52.665445, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
+    ["How", "Korinth", 1.990, 1.694, 13, 22, 14.556464, 52.665445, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
+    ["Item", "Patras", 1.944, 1.599, 12, 22, 14.556464, 52.665445, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
+    ["Jig", "Patras", 1.995, 1.633, 0, 24, 14.556464, 52.665445, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
 ];
-
 let stations = [];
 
 
@@ -32,12 +31,16 @@ let stations = [];
     TODO: Move to a separate file (THIS IS THE OG CLASS, ALL CHANGES SHOULD BE DISTRIBUTED FROM HERE)
  */
 class Station {
-    constructor(name, region, prices, opening_hours)
+    constructor(name, region, prices, opening_hours, contact, gps, about="")
     {
         this.name = name;
         this.region = region;
         this.prices = prices;
         this.opening_hours = opening_hours;
+        this.contact = contact;
+        this.gps = gps;
+        this.about = about;
+
         this.is_nonstop = (this.opening_hours.open === 0 && this.opening_hours.close === 24);
     }
 
@@ -144,7 +147,9 @@ function fake_read_db()
         let station = new Station(db_entry[0],
             db_entry[1],
             {"n95": db_entry[2], "diesel": db_entry[3]},
-            {"open": db_entry[4], "close": db_entry[5]});
+            {"open": db_entry[4], "close": db_entry[5]},
+            {"manager": db_entry[8], "email": db_entry[9], "phone": db_entry[10], "address": db_entry[11]},
+            [db_entry[6], db_entry[7]]);
         stations.push(new DisplayStationListItem(station));
     }
 }
