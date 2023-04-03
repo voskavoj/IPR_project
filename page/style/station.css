@@ -1,7 +1,3 @@
-/*html, body {*/
-/*    height:100%;*/
-/*}*/
-
 body {
     background: white;
 }
@@ -10,13 +6,10 @@ body {
     display: flex;
     width: 100%;
     min-height: 300px;
-    background-image: url("../img/sample_gs.JPG");
     background-size: 100% auto;
     background-repeat: no-repeat;
     background-position: center center;
-
     position: relative;
-
 }
 
 .station-name {

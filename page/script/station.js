@@ -20,16 +20,16 @@ let fldManager = document.querySelector("#fld-manager");
 
 // GLOBALS
 const fake_station_db = [
-    ["Able",    "Achaios",  1.997, 1.654, 6,  22, 14.556464, 52.665445, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
-    ["Baker",   "Achaios",  1.998, 1.634, 15, 22, 14.556464, 52.665445, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
-    ["Charlie", "Pelopones",1.954, 1.665, 0,  24, 14.556464, 52.665445, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
-    ["Dog",     "Pelopones",1.936, 1.646, 0,  24, 14.556464, 52.665445, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
-    ["Easy",    "Pelopones",1.868, 1.634, 0,  24, 14.556464, 52.665445, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
-    ["Fox",     "Korinth",  1.900, 1.643, 23, 24, 14.556464, 52.665445, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
-    ["George",  "Korinth",  1.902, 1.655, 3,  23, 14.556464, 52.665445, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
-    ["How",     "Korinth",  1.990, 1.694, 13, 22, 14.556464, 52.665445, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
-    ["Item",    "Patras",   1.944, 1.599, 12, 22, 14.556464, 52.665445, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
-    ["Jig",     "Patras",   1.995, 1.633, 0,  24, 14.556464, 52.665445, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
+    ["Able",    "Achaios",  1.997, 1.654, 6,  22, 38.2542278, 21.7402939, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
+    ["Baker",   "Achaios",  1.998, 1.634, 15, 22, 38.2542278, 21.7402939, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
+    ["Charlie", "Pelopones",1.954, 1.665, 0,  24, 38.2542278, 21.7402939, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
+    ["Dog",     "Pelopones",1.936, 1.646, 0,  24, 38.2542278, 21.7402939, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
+    ["Easy",    "Pelopones",1.868, 1.634, 0,  24, 38.2542278, 21.7402939, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
+    ["Fox",     "Korinth",  1.900, 1.643, 23, 24, 38.2542278, 21.7402939, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
+    ["George",  "Korinth",  1.902, 1.655, 3,  23, 38.2542278, 21.7402939, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
+    ["How",     "Korinth",  1.990, 1.694, 13, 22, 38.2542278, 21.7402939, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
+    ["Item",    "Patras",   1.944, 1.599, 12, 22, 38.2542278, 21.7402939, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
+    ["Jig",     "Patras",   1.995, 1.633, 0,  24, 38.2542278, 21.7402939, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
 ];
 
 let active_station = null;
@@ -57,7 +57,6 @@ class Station {
     {
         let current_time = new Date(); // hrs as decimal
         current_time = current_time.getHours() + current_time.getMinutes() / 60;
-        console.debug(current_time)
 
         if (this.is_nonstop)
             return true;
@@ -97,6 +96,7 @@ class DisplayStation {
     constructor(station)
     {
         this.station = station;
+        this.map = null;
     }
 
     display()
@@ -107,21 +107,24 @@ class DisplayStation {
         fldPricesDiesel.innerHTML = this.station.prices.diesel;
         fldRegion.innerHTML = this.station.region;
         fldOpHours.innerHTML = this.station.print_opening_hours();
-        fldIsOpen.innerHTML = this._display_is_open();
+        fldIsOpen.innerHTML = this._compose_is_open();
         fldPhone.innerHTML = this.station.contact.phone;
         fldEmail.innerHTML = this.station.contact.email;
         fldAddress.innerHTML = this.station.contact.address;
-        fldAbout.innerHTML = this._display_about();
-        fldGps.innerHTML = this._display_gps();
+        fldAbout.innerHTML = this._compose_about();
+        fldGps.innerHTML = this._compose_gps();
         fldManager.innerHTML = this.station.contact.manager;
+
+        this._display_map();
+        this._display_image();
     }
 
-    _display_gps()
+    _compose_gps()
     {
         return this.station.gps[0] + "N, " + this.station.gps[1] + "E";
     }
 
-    _display_is_open()
+    _compose_is_open()
     {
         if (this.station.is_open_now())
             return "open"
@@ -129,7 +132,7 @@ class DisplayStation {
             return "closed"
     }
 
-    _display_about()
+    _compose_about()
     {
         if (this.station.about !== "")
             return this.station.about;
@@ -137,8 +140,34 @@ class DisplayStation {
             return "<i>No new announcements</i>";
     }
 
+    _display_map()
+    {
+        this.map = new Map("map", this.station.gps);
+        this.map.add_marker(this.station.gps);
+    }
 
+    _display_image()
+    {
+        fldImage.style.backgroundImage = `url("img/${this.station.name}.JPG")`;
+    }
+}
 
+class Map
+{
+    constructor(html_element, center, zoom=15)
+    {
+        this.map = new L.map('map', {center: center, zoom: zoom});
+        this.map.addLayer(new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'));
+        this.markers = [];
+    }
+
+    add_marker(gps, name="")
+    {
+        let marker = L.marker(gps).addTo(this.map);
+        if (name !== "")
+            marker.bindPopup(name);
+        this.markers.push(marker);
+    }
 }
 
 
@@ -183,7 +212,7 @@ function render_station(station_id)
 
 function copy_gps_to_clipboard()
 {
-    navigator.clipboard.writeText(active_station._display_gps());
+    navigator.clipboard.writeText(active_station._compose_gps());
 }
 
 // PAGE FUNCTIONS

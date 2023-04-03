@@ -5,6 +5,11 @@
     <title>Station</title>
     <link href="style/common.css" rel="stylesheet">
     <link href="style/station.css" rel="stylesheet">
+    <link
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+            crossorigin=""
+    />
 </head>
 <body>
     <div class="station-image" id="fld-image">
@@ -19,13 +24,11 @@
 
     <div class="info-bar">
         <div class="station-map">
-<!--            <div class="map" id="fld-map">-->
-            <!--todo--> <iframe class="map" src="https://www.openstreetmap.org/export/embed.html?bbox=21.73380017280579%2C38.24789600386227%2C21.744850873947147%2C38.25232782929022&amp;layer=mapnik&amp;marker=38.250111950356754%2C21.739325523376465"></iframe>
-<!--            </div>-->
+            <div class="map" id="map"></div>
         </div>
 
         <div class="content-box">
-            <p>Station is currently <span id="fld-is-open"></span>.</p>
+            <p>Station is currently <b><span id="fld-is-open"></span></b>.</p>
             <p>Opening hours: every day <span id="fld-opening-hours"></span>.</p>
 
             <h2>Address</h2>
@@ -46,7 +49,7 @@
         </div>
 
     </div>
-
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="script/station.js"></script>
 </body>
 </html>

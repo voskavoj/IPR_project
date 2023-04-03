@@ -46,15 +46,13 @@ class Station {
 
     is_open_now()
     {
-        let current_time_min = new Date();
-        current_time_min = current_time_min.getHours() * 60 + current_time_min.getMinutes();
+        let current_time = new Date(); // hrs as decimal
+        current_time = current_time.getHours() + current_time.getMinutes() / 60;
 
         if (this.is_nonstop)
             return true;
         else
-            return this.opening_hours.open * 60 < current_time_min && current_time_min < this.opening_hours.close * 60;
-        // return (Station._hh_mm_to_minutes(this.opening_hours.open) < current_time_min &&
-        //     Station._minutes_to_hh_mm(this.opening_hours.close) > current_time_min);
+            return this.opening_hours.open < current_time && current_time < this.opening_hours.close;
     }
 
     print_opening_hours()
