@@ -33,6 +33,7 @@ const fake_station_db = [
 ];
 
 let active_station = null;
+let station_map = null;
 
 // EVENT LISTENERS
 
@@ -96,7 +97,6 @@ class DisplayStation {
     constructor(station)
     {
         this.station = station;
-        this.map = null;
     }
 
     display()
@@ -115,7 +115,6 @@ class DisplayStation {
         fldGps.innerHTML = this._compose_gps();
         fldManager.innerHTML = this.station.contact.manager;
 
-        this._display_map();
         this._display_image();
     }
 
@@ -140,12 +139,6 @@ class DisplayStation {
             return "<i>No new announcements</i>";
     }
 
-    _display_map()
-    {
-        this.map = new Map("map", this.station.gps);
-        this.map.add_marker(this.station.gps);
-    }
-
     _display_image()
     {
         fldImage.style.backgroundImage = `url("img/${this.station.name}.JPG")`;
@@ -167,6 +160,14 @@ class Map
         if (name !== "")
             marker.bindPopup(name);
         this.markers.push(marker);
+    }
+
+    display_user_position(position)
+    {
+        let radius = Math.round(position.coords.accuracy / 2);
+        L.marker([position.coords.latitude, position.coords.longitude]).addTo(this.map)
+            .bindPopup("You are within " + radius + " meters from this point").openPopup();
+        L.circle([position.coords.latitude, position.coords.longitude], radius).addTo(this.map);
     }
 }
 
@@ -207,6 +208,9 @@ function render_station(station_id)
 
     active_station = new DisplayStation(station);
     active_station.display();
+
+    station_map = new Map("map", active_station.station.gps);
+    station_map.add_marker(active_station.station.gps);
 
 }
 
