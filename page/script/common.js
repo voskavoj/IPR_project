@@ -69,27 +69,29 @@ class Map
         this.markers = [];
     }
 
-    add_marker(gps, name="")
+    add_marker(gps, name="", circle_radius = 0)
     {
         let marker = L.marker(gps).addTo(this.map);
         if (name !== "")
             marker.bindPopup(name);
+        if (circle_radius > 0)
+            L.circle(gps, circle_radius).addTo(this.map);
         this.markers.push(marker);
     }
 
     display_user_position(position)
     {
-        let radius = Math.round(position.coords.accuracy / 2);
-        L.marker([position.coords.latitude, position.coords.longitude]).addTo(this.map)
-            .bindPopup("You are within " + radius + " meters from this point").openPopup();
-        L.circle([position.coords.latitude, position.coords.longitude], radius).addTo(this.map);
+        console.debug(position);
+        let radius = Math.round(position.accuracy / 2);
+        this.add_marker(position.latlng, "You are within " + radius + " meters from this point", radius);
+        this.map.panTo(position.latlng);
     }
 }
 
 
 // FAKE DB
 const fake_station_db = [
-    ["Able", "Achaios", 1.997, 1.654, 6, 22, 14.556464, 52.665445, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
+    ["Able", "Achaios", 1.997, 1.654, 6, 22, 20.556464, 52.665445, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
     ["Baker", "Achaios", 1.998, 1.634, 15, 22, 14.556464, 52.665445, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
     ["Charlie", "Pelopones", 1.954, 1.665, 0, 24, 14.556464, 52.665445, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
     ["Dog", "Pelopones", 1.936, 1.646, 0, 24, 14.556464, 52.665445, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
