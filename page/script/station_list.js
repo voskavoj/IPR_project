@@ -57,7 +57,7 @@ class DisplayStationListItem {
 
 function construct_table()
 {
-    stations = fake_read_db(DisplayStationListItem);
+    stations = get_station_list();
     for (let i = 0; i < stations.length; i++)
     {
         let station = new DisplayStationListItem(stations[i]);

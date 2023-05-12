@@ -103,12 +103,16 @@ const fake_station_db = [
     ["Jig", "Patras", 1.995, 1.633, 0, 24, 14.556464, 52.665445, "Georgios Mouranos", "able@fakeoil.gr", "+39445675435", "Ametitia 13\nPatra\n25664"],
 ];
 
-function fake_read_db()
+function pull_db_from_server()
+{
+    return fake_station_db; // todo real
+}
+function parse_stations_db(db)
 {
     let station_list = [];
-    for (let i = 0; i < fake_station_db.length; i++)
+    for (let i = 0; i < db.length; i++)
     {
-        let db_entry = fake_station_db[i];
+        let db_entry = db[i];
         let station = new Station(db_entry[0],
             db_entry[1],
             {"n95": db_entry[2], "diesel": db_entry[3]},
@@ -119,4 +123,32 @@ function fake_read_db()
         station_list.push(station);
     }
     return station_list;
+}
+
+
+// DB PULL
+function get_station_list()
+{
+    let db;
+
+    if (!is_session_storage_of_stations_valid())
+    {
+        console.log("Pulling new DB");
+        db = pull_db_from_server();
+        sessionStorage.setItem("stations", JSON.stringify(db));
+    }
+    else
+        db = JSON.parse(sessionStorage.getItem("stations"));
+
+    return parse_stations_db(db);
+}
+
+function is_session_storage_of_stations_valid()
+{
+    if (sessionStorage.getItem("stations") == null)
+        return false;
+    else if (false) // todo expired
+        return false;
+    else
+        return true;
 }

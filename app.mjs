@@ -16,8 +16,8 @@ app.set('view engine', 'hbs');
 
 
 // Routes
-// router.route('/api/tasks').get(listAllTasks);
-// router.route('/').get(listAllTasksRender);
+// router.route('/api/tasks').get();
+// router.route('/').get();
 // router.route('/toggle').get(toggleTask);
 // router.route('/delete').get(deleteTask);
 // router.route('/add').get(addTask);

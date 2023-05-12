@@ -80,7 +80,7 @@ function render_map()
 
 function on_page_load()
 {
-    stations = fake_read_db();
+    stations = get_station_list();
     render_map();
 }
 

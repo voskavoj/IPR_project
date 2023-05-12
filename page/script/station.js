@@ -79,9 +79,10 @@ class DisplayStation {
 
 
 // FUNCTIONS
-function find_station_in_fake_db(searched_name)
+function find_station_in_db(searched_name)
 {
-    let stations = fake_read_db();
+    let stations = get_station_list();
+    console.log(stations);
 
     for (let i = 0; i < stations.length; i++)
     {
@@ -94,10 +95,10 @@ function find_station_in_fake_db(searched_name)
 
 function render_station(station_id)
 {
-    let station = find_station_in_fake_db(station_id);
+    let station = find_station_in_db(station_id);
     if (station == null)
     {
-        display_404();
+        // display_404();
         return;
     }
 
