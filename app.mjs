@@ -6,7 +6,7 @@ import session from "express-session";
 
 // File imports
 import {route_auth, route_login, route_logout} from "./server/authentication.mjs"
-import {route_manage, route_manage_select_station} from "./server/manage.mjs";
+import {route_manage, route_update_select_station, route_update_prices, route_update_points} from "./server/manage.mjs";
 
 // Server setup
 const app = express()
@@ -30,7 +30,9 @@ router.route('/logout').get(route_logout);
 router.route("/manage").get(route_manage);
 
 router.route("/auth").post(route_auth);
-router.route("/update_select_station").post(route_manage_select_station);
+router.route("/update_select_station").post(route_update_select_station);
+router.route("/update_prices").post(route_update_prices);
+router.route("/update_points").post(route_update_points);
 
 // Server start
 const server = app.listen(port, () => { console.log(`http://127.0.0.1:${port}`) });

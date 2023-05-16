@@ -2,6 +2,16 @@
     <h2>Welcome, {{username}}</h2>
 </div>
 
+{{#if update_successful includeZero=true}}
+    <div>
+        {{#if update_successful}}
+            Update was successful.
+        {{else}}
+            Update failed!
+        {{/if}}
+    </div>
+{{/if}}
+
 <div>
     Update user points
     <form method="POST" action="/update_points">
