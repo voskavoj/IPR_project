@@ -5,7 +5,7 @@ import bodyParser from "body-parser";
 import session from "express-session";
 
 // File imports
-import {route_auth, route_login, route_logout} from "./server/authentication.mjs"
+import {route_auth, route_register, route_login, route_logout} from "./server/authentication.mjs"
 import {route_manage, route_update_select_station, route_update_prices, route_update_points} from "./server/manage.mjs";
 
 // Server setup
@@ -30,6 +30,7 @@ router.route('/logout').get(route_logout);
 router.route("/manage").get(route_manage);
 
 router.route("/auth").post(route_auth);
+router.route("/auth_register").post(route_register);
 router.route("/update_select_station").post(route_update_select_station);
 router.route("/update_prices").post(route_update_prices);
 router.route("/update_points").post(route_update_points);
