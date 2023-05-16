@@ -13,11 +13,13 @@ export function route_manage(req, res)
         res.render("manager", {username: req.session.username,
             assigned_stations: assigned_stations,
             selected_station: selected_station,
-            fuel_types: fuel_types})
+            fuel_types: fuel_types});
     }
     else if (is_authenticated(req, 1)) // user
     {
-
+        let user_points = poll_points_for_user(req.session.username);
+        res.render("user", {username: req.session.username,
+            user_points: user_points});
     }
     else
         res.redirect("login");
@@ -39,5 +41,11 @@ function poll_fuel_prices_for_station(station_name)
 {
     // todo DB
     return {"n95": 5, "diesel": 4};
+}
+
+function poll_points_for_user(username)
+{
+    // todo DB
+    return 324;
 }
 
