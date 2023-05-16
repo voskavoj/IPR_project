@@ -3,11 +3,11 @@ export function route_auth(req, res)
     let username = req.body.username;
     let password = req.body.password;
 
-    if (authenticate_user(username, password))
+    let auth_level = authenticate_user(username, password);
+
+    if (auth_level)
     {
-        req.session.is_authenticated = true;
-        req.session.username = username;
-        req.session.invalid_login_attempt = false;
+        log_in_user(req, username, auth_level);
         res.redirect('/index.html');
     }
     else
@@ -15,33 +15,100 @@ export function route_auth(req, res)
         req.session.invalid_login_attempt = true;
         res.redirect('/login');
     }
-    console.log(username, password);
 }
 
+function log_in_user(req, username, auth_level)
+{
+    req.session.is_authenticated = true;
+    req.session.auth_level = auth_level;
+    req.session.username = username;
+    req.session.invalid_login_attempt = false;
+}
+
+/**
+ * Search database for username, password combination
+ *
+ * Return level of authentication:
+ *      0: no user or invalid credentials
+ *      1: user
+ *      2: manager
+ *      3: admin
+ * **/
 function authenticate_user(username, password)
 {
-    // todo
+    // todo DB
 
-    if (password === "1234")
-        return true;
+    if (password === "usr")
+        return 1;
+    else if (password === "man")
+        return 2;
+    else if (password === "adm")
+        return 3;
     else
-        return false;
+        return 0;
 }
 
 export function route_login(req, res)
 {
-    if (req.session.is_authenticated)
+    if (is_authenticated(req))
         res.redirect('/index.html');
     else
     {
-        let invalid_attempt = req.session.invalid_login_attempt;
-        res.render("login", {invalid_attempt: invalid_attempt});
+        res.render("login", {invalid_attempt: req.session.invalid_login_attempt});
     }
 }
 
 export function route_logout(req, res)
 {
     req.session.is_authenticated = false;
+    req.session.auth_level = 0;
     req.session.username = null;
     res.redirect('/index.html');
+}
+
+export function is_authenticated(req, required_level=1)
+{
+    return (req.session.is_authenticated && req.session.auth_level >= required_level)
+}
+
+export function route_register(req, res)
+{
+    let username = req.body.username;
+    let password = req.body.password;
+
+    if (is_username_available(username))
+    {
+        if (add_new_user(username, password)) // add to DB ok
+        {
+            req.session.invalid_login_attempt = false;
+            log_in_user(req, username, 1);
+            res.redirect("index.html");
+        }
+        else
+        {
+            req.session.invalid_login_attempt = true;
+            res.redirect("login");
+        }
+
+    }
+    else
+    {
+        req.session.invalid_login_attempt = true;
+        res.redirect("login");
+    }
+}
+
+function is_username_available(username)
+{
+    // todo DB
+    if (username === "reserved") // testing
+        return false
+
+    return true
+}
+
+function add_new_user(username, password)
+{
+    // todo DB
+    return true;
 }

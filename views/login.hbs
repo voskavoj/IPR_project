@@ -2,14 +2,32 @@ Login form
 
 {{#if invalid_attempt}}Invalid username or password{{/if}}
 
-<form method="POST" action="/auth">
-    <label for="username">
-        Username:
-    </label>
-    <input type="text" name="username" placeholder="Username" id="username" required>
-    <label for="password">
-        Password
-    </label>
-    <input type="password" name="password" placeholder="Password" id="password" required>
-    <input type="submit" value="Log In">
-</form>
+<div>
+    <h3>Log in</h3>
+    <form method="POST" action="/auth">
+        <label for="username">
+            Username:
+        </label>
+        <input type="text" name="username" placeholder="Username" id="username" required>
+        <label for="password">
+            Password
+        </label>
+        <input type="password" name="password" placeholder="Password" id="password" required>
+        <input type="submit" value="Log In">
+    </form>
+</div>
+
+<div>
+    <h3>Register</h3>
+    <form method="POST" action="/auth_register">
+        <label for="username">
+            Username:
+        </label>
+        <input type="text" name="username" placeholder="Username" id="username" required>
+        <label for="password">
+            Password
+        </label>
+        <input type="password" name="password" placeholder="Password" id="password" required>
+        <input type="submit" value="Register">
+    </form>
+</div>
