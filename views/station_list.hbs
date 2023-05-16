@@ -10,8 +10,15 @@
             <th>Diesel</th>
             <th>Opening hours</th>
         </tr>
-        <!-- javascript -->
+        {{#each stations}}
+            <tr class="item-station">
+                <td><a href="station?station={{name}}">{{{open}}}</a></td>
+                <td><a href="station?station={{name}}">{{name}}</a></td>
+                <td><a href="station?station={{name}}">{{region}}</a></td>
+                <td><a href="station?station={{name}}">{{prices.n95}}</a></td>
+                <td><a href="station?station={{name}}">{{prices.diesel}}</a></td>
+                <td><a href="station?station={{name}}">{{opening_hours}}</a></td>
+            </tr>
+        {{/each}}
     </table>
 </div>
-<script src="script/common.js"></script>
-<script src="script/station_list.js"></script>
