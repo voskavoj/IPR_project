@@ -6,6 +6,7 @@ import session from "express-session";
 
 // File imports
 import {route_auth, route_login, route_logout} from "./server/authentication.mjs"
+import {route_manage, route_manage_select_station} from "./server/manage.mjs";
 
 // Server setup
 const app = express()
@@ -22,10 +23,14 @@ app.engine('hbs', engine({ extname: 'hbs' }));
 app.set('view engine', 'hbs');
 app.set('views', './views');
 
+
 // Routes
-router.route("/auth").post(route_auth);
 router.route('/login').get(route_login);
 router.route('/logout').get(route_logout);
+router.route("/manage").get(route_manage);
+
+router.route("/auth").post(route_auth);
+router.route("/update_select_station").post(route_manage_select_station);
 
 // Server start
 const server = app.listen(port, () => { console.log(`http://127.0.0.1:${port}`) });

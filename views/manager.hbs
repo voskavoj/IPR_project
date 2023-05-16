@@ -1,0 +1,51 @@
+<div>
+    <h2>Welcome, {{username}}</h2>
+</div>
+
+<div>
+    Update user points
+    <form method="POST" action="/update_points">
+        <label for="user_number">
+            User no:
+        </label>
+        <input type="text" name="user_number" placeholder="User no." id="user_number" required>
+        <label for="points">
+            Points
+        </label>
+        <input type="number" name="points" placeholder="0" id="points" required>
+        <input type="submit" value="Submit">
+    </form>
+
+</div>
+
+<div>
+    Update prices
+    <div>
+        <form method="POST" action="/update_select_station">
+            <label for="station">Station:</label>
+
+            <select id="station" name="station">
+                {{#each assigned_stations}}
+                <option value={{this}}>{{this}}</option>
+                {{/each}}
+            </select>
+            <input type="submit" value="Select">
+        </form>
+    </div>
+    <div>
+        {{#if selected_station}}
+            <form method="POST" action="/update_prices">
+
+                <label for="station">Station:</label>
+                <input type="text" id="station" name="station" value="{{selected_station}}" disabled>
+
+                {{#each fuel_types}}
+                    <label for={{@key}}>New price for {{@key}}:</label>
+                    <input type="number" name="{{@key}}" value={{this}} id={{@key}} required>
+                {{/each}}
+                <input type="submit" value="Submit">
+
+            </form>
+        {{/if}}
+    </div>
+</div>
