@@ -1,12 +1,14 @@
-
-    <div class="station-image" id="fld-image">
+{{#with station}}
+    <div class="station-image" style="background-image: {{image_url}}">
         <div class="station-name">
-            <span id="fld-name"></span> // <span id="fld-region"></span>
+            <span id="station-name">{{name}}</span> // {{region}}
         </div>
+        {{#with prices}}
         <div class="station-prices">
-            <p>N95: <span id="fld-prices-n95"></span></p>
-            <p>Diesel: <span id="fld-prices-diesel"></span></p>
+            <p>N95: <span id="fld-prices-n95">{{n95}}</span></p>
+            <p>Diesel: <span id="fld-prices-diesel">{{diesel}}</span></p>
         </div>
+        {{/with}}
     </div>
 
     <div class="info-bar">
@@ -15,27 +17,32 @@
         </div>
 
         <div class="content-box">
-            <p>Station is currently <b><span id="fld-is-open"></span></b>.</p>
-            <p>Opening hours: every day <span id="fld-opening-hours"></span>.</p>
+            <p>Station is currently <b>{{open_word}}</b>.</p>
+            <p>Opening hours: every day {{opening_hours}}.</p>
 
+            {{#with contact}}
             <h2>Address</h2>
-            <address><span id="fld-address"></span></address>
+            <address>{{address}}</address>
 
-            <p>GPS: <span id="fld-gps"></span> <button class="btn-copy" onclick="copy_gps_to_clipboard()">&#x29C9;</button></p>
+            <p>GPS: {{gps}} <button class="btn-copy" onclick="copy_gps_to_clipboard()">&#x29C9;</button></p>
 
             <h2>Contact</h2>
-            <address>Manager: <span id="fld-manager"></span>
-                Phone: <span id="fld-phone"></span>
-                Email: <span id="fld-email"></span>
+            <address>Manager: {{manager}}
+                Phone: {{phone}}
+                Email: {{email}}
             </address>
+            {{/with}}
         </div>
 
         <div class="content-box">
             <h2>Announcements</h2>
-                <span id="fld-about"></span>
+            {{about}}
         </div>
 
     </div>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script src="script/common.js"></script>
-    <script src="script/station.js"></script>
+{{/with}}
+
+<data id="map-data" value="{{map_data}}"></data>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src="script/map.js"></script>
+<script src="script/station.js"></script>

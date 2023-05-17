@@ -40,13 +40,16 @@ export class Station {
     {
         this._is_open = this.is_open_now(oh_open, oh_close);
 
-        this.open = this.format_is_open_now(true);
+        this.open_tick = this.format_is_open_now(true);
+        this.open_word = this.format_is_open_now(false);
         this.name = name;
         this.region = region;
         this.prices = {n95: price_n95, diesel: price_diesel};
         this.opening_hours = this.format_opening_hours(oh_open, oh_close);
-        this.contact = {manager: mng, email: email, phone: phone, address: addr};
+        this.contact = {manager: mng, email: email, phone: phone, address: addr,
+                        gps: this.format_gps(gps_lon, gps_lat)};
         this.gps = [gps_lon, gps_lat];
+        this.image_url = this.format_image_url(name);
         this.about = about;
     }
 
@@ -75,5 +78,15 @@ export class Station {
             return symbol ? "&#x2714;" : "open";
         else
             return symbol ? "&#x2718;" : "closed";
+    }
+
+    format_gps(lon, lat)
+    {
+        return lon + "N; " + lat + "E";
+    }
+
+    format_image_url(name)
+    {
+        return `url("img/${name}.JPG")`;
     }
 }
