@@ -1,4 +1,14 @@
-{{#with station}}
+{{#section 'head'}}
+    <title>Station</title>
+    <link href="style/station.css" rel="stylesheet">
+    <link
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+            crossorigin=""
+    />
+{{/section}}
+
+    {{#with station}}
     <div class="station-image" style="background-image: {{image_url}}">
         <div class="station-name">
             <span id="station-name">{{name}}</span> // {{region}}
