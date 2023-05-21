@@ -1,20 +1,18 @@
 // DOCUMENT
 let btnFindNearestGS = document.querySelector("#btn-find-nearest-gs");
+const dataMapData = document.querySelector("#map-data");
 
 // GLOBALS
 const default_map_center = [38.28935210420344, 21.785465559524];
-
 let map;
-let stations = [];
 let user_position = null;
+
 
 // EVENT LISTENERS
 btnFindNearestGS.addEventListener("click", find_my_nearest_gs);
 
-// CLASSES
 
-
-// FUNCTIONS
+// Map user location
 function cb_on_location_found(e)
 {
     user_position = e.latlng;
@@ -30,9 +28,11 @@ function cb_on_location_found_find_nearest_gs(e)
 function cb_on_location_error(e)
 {
     user_position = null;
-    alert(e.message);
+    console.log(e.message);
 }
 
+
+// Find my nearest station
 function find_my_nearest_gs()
 {
     if (!user_position)
@@ -65,23 +65,18 @@ function get_closest_station()
     return closest_gs;
 }
 
-// PAGE FUNCTIONS
-function render_map()
+
+// page load
+function on_page_load()
 {
-    map = new Map("map", default_map_center, 15);
-    for (const station of stations)
-    {
-        map.add_marker(station.gps, station.name)
-    }
+    let map_data = JSON.parse(dataMapData.value);
+    map_data.center = default_map_center;
+    stations = map_data.additional_points;
+
+    map = new Map("map", map_data);
     map.map.on('locationfound', cb_on_location_found);
     map.map.on('locationerror', cb_on_location_error);
     map.map.locate({setView: true, maxZoom: 16});
 }
+on_page_load();
 
-function on_page_load()
-{
-    stations = fake_read_db();
-    render_map();
-}
-
-on_page_load(); // init

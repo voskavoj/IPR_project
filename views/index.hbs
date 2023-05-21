@@ -43,21 +43,23 @@
                 </div>
                 <div class ="top-right-right">
                     <table>
+                        {{#with prices}}
                         <caption> Price Table</caption>
                         <tr>
                             <th>Gas Type</th>
                             <th> Price </th>
                         </tr>
                         <tr>
-                            <td> Type 1</td>
-                            <td> Price 1</td>
+                            <td> N95</td>
+                            <td> {{n95}}</td>
                         </tr>
                         <td>
-                            Type 2
+                            Diesel
                         </td>
                         <td>
-                            Price 2
+                            {{diesel}}
                         </td>
+                        {{/with}}
                     </table>
                 </div>
             </div>
@@ -73,6 +75,8 @@
           </div>
         </div>
       </div>
-      <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script src="script/common.js"></script>
+
+    <data id="map-data" value="{{map_data}}"></data>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="script/map.js"></script>
     <script src="script/index.js"></script>

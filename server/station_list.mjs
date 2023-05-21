@@ -4,7 +4,7 @@ export function route_station_list(req, res)
     res.render("station_list", {stations: station_list});
 }
 
-function poll_all_stations()
+export function poll_all_stations()
 {
     // todo DB
     // return list of Station classes
