@@ -8,7 +8,7 @@ export function route_auth(req, res)
     if (auth_level)
     {
         log_in_user(req, username, auth_level);
-        res.redirect('/index.html');
+        res.redirect('/index');
     }
     else
     {
@@ -51,7 +51,7 @@ function authenticate_user(username, password)
 export function route_login(req, res)
 {
     if (is_authenticated(req))
-        res.redirect('/index.html');
+        res.redirect('/index');
     else
     {
         res.render("login", {invalid_attempt: req.session.invalid_login_attempt});
@@ -63,7 +63,7 @@ export function route_logout(req, res)
     req.session.is_authenticated = false;
     req.session.auth_level = 0;
     req.session.username = null;
-    res.redirect('/index.html');
+    res.redirect('/index');
 }
 
 export function is_authenticated(req, required_level=1)
@@ -82,7 +82,7 @@ export function route_register(req, res)
         {
             req.session.invalid_login_attempt = false;
             log_in_user(req, username, 1);
-            res.redirect("index.html");
+            res.redirect("index");
         }
         else
         {

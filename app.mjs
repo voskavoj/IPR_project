@@ -10,7 +10,7 @@ import {route_manage, route_update_select_station, route_update_prices, route_up
 import {route_station} from "./server/station.mjs";
 import {route_station_list} from "./server/station_list.mjs";
 import {route_index} from "./server/index.mjs";
-import {route_contact_form, route_contacts, route_products} from "./server/static_pages.mjs";
+import {route_contact_form, route_contacts, route_products, route_station_404} from "./server/static_pages.mjs";
 
 // Server setup
 const app = express()
@@ -38,6 +38,7 @@ router.route("/station").get(route_station);
 router.route("/index").get(route_index);
 router.route("/contacts").get(route_contacts);
 router.route("/products").get(route_products);
+router.route("/station_404").get(route_station_404);
 
 router.route("/auth").post(route_auth);
 router.route("/auth_register").post(route_register);

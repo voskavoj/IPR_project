@@ -43,7 +43,7 @@ function find_my_nearest_gs()
     }
     else
     {
-        window.location.href = "station.html?station=" + get_closest_station().name;
+        window.location.href = "/station?station=" + get_closest_station().name;
     }
 }
 

@@ -13,3 +13,8 @@ export function route_contact_form(req, res)
     // todo
     res.redirect("index");
 }
+
+export function route_station_404(req, res)
+{
+    res.render("station_404", {});
+}

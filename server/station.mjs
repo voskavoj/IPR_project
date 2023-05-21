@@ -6,7 +6,7 @@ export function route_station(req, res)
     console.log(station_name)
     if (station_name === undefined)
     {
-        res.redirect("station_404.html");
+        res.redirect("station_404");
         return;
     }
 
