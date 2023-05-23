@@ -1,0 +1,58 @@
+{{#section 'head'}}
+    <title>Station</title>
+    <link href="style/station.css" rel="stylesheet">
+    <link
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+            crossorigin=""
+    />
+{{/section}}
+
+    {{#with station}}
+    <div class="station-image" style="background-image: {{image_url}}">
+        <div class="station-name">
+            <span id="station-name">{{name}}</span> // {{region}}
+        </div>
+        {{#with prices}}
+        <div class="station-prices">
+            <p>N95: <span id="fld-prices-n95">{{n95}}</span></p>
+            <p>Diesel: <span id="fld-prices-diesel">{{diesel}}</span></p>
+        </div>
+        {{/with}}
+    </div>
+
+    <div class="info-bar">
+        <div class="station-map">
+            <div class="map" id="map"></div>
+        </div>
+
+        <div class="content-box">
+            <p>Station is currently <b>{{open_word}}</b>.</p>
+            <p>Opening hours: every day {{opening_hours}}.</p>
+
+            {{#with contact}}
+            <h2>Address</h2>
+            <address>{{address}}</address>
+
+            <p>GPS: {{gps}} <button class="btn-copy" onclick="copy_gps_to_clipboard()">&#x29C9;</button></p>
+
+            <h2>Contact</h2>
+            <address>Manager: {{manager}}
+                Phone: {{phone}}
+                Email: {{email}}
+            </address>
+            {{/with}}
+        </div>
+
+        <div class="content-box">
+            <h2>Announcements</h2>
+            {{about}}
+        </div>
+
+    </div>
+{{/with}}
+
+<data id="map-data" value="{{map_data}}"></data>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src="script/map.js"></script>
+<script src="script/station.js"></script>

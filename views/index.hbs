@@ -1,16 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-	<title>My Page</title>
-	<link href="style/experiment.css" rel = "stylesheet">
+{{#section 'head'}}
+    <title>FakeOil</title>
+    <link href="style/experiment.css" rel="stylesheet">
     <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-      crossorigin=""
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+            crossorigin=""
     />
-</head>
-<body>
+{{/section}}
+
+
 	<div class="container">
         <div class="header">
             <div class="logo">Logo</div>
@@ -18,34 +16,6 @@
                 <button>Sign in/Register</button>
             </div>           
         </div>
-        <nav>
-          <ul>
-            <li>
-              <a href="index.html"> Home Page </a>
-            </li>
-            <li>
-              <a href="station_list.html"> Gas Stations List</a>
-            </li>
-            <li class="selected">
-              <a class = "selected" href="become_manager.html">Join as a manager/employee</a>
-            </li>
-            <li>
-              <a href="products.html"> Products & Services</a>
-            </li>
-            <li>
-              <a href="contacts.html">Contact us</a>
-            </li>
-              <li>
-                  <a href="manage">Manage</a>
-              </li>
-              <li>
-                  <a href="login">Log in</a>
-              </li>
-              <li>
-                  <a href="logout">Log out</a>
-              </li>
-          </ul>
-        </nav>
         <div class="main-content">
           <div class="left-sidebar">Left Sidebar</div>
           <div class="right-content">
@@ -55,21 +25,23 @@
                 </div>
                 <div class ="top-right-right">
                     <table>
+                        {{#with prices}}
                         <caption> Price Table</caption>
                         <tr>
                             <th>Gas Type</th>
                             <th> Price </th>
                         </tr>
                         <tr>
-                            <td> Type 1</td>
-                            <td> Price 1</td>
+                            <td> N95</td>
+                            <td> {{n95}}</td>
                         </tr>
                         <td>
-                            Type 2
+                            Diesel
                         </td>
                         <td>
-                            Price 2
+                            {{diesel}}
                         </td>
+                        {{/with}}
                     </table>
                 </div>
             </div>
@@ -85,8 +57,8 @@
           </div>
         </div>
       </div>
-      <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script src="script/common.js"></script>
+
+    <data id="map-data" value="{{map_data}}"></data>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="script/map.js"></script>
     <script src="script/index.js"></script>
-</body>
-</html>

@@ -1,21 +1,17 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
+{{#section 'head'}}
     <title>Station not found</title>
-</head>
-<body onload="redirect()">
+{{/section}}
+
 <h1 style="text-align: center; padding-top: 50px; display: block;">Error 404</h1>
 <p>Station not found.</p>
 <p>Redirecting to station list...</p>
-<p>Click <a href="station_list.html">here</a> to redirect manually</p>
+<p>Click <a href="station_list">here</a> to redirect manually</p>
 <script>
     function redirect() {
         setTimeout(function(){
-                window.location.replace("station_list.html");
+                window.location.replace("station_list");
             }
             , 3000);
     }
+    redirect();
 </script>
-</body>
-</html>
