@@ -1,10 +1,12 @@
 import {is_authenticated} from "./authentication.mjs";
+import {poll_assigned_stations_for_manager} from "./database/database.mjs";
 
-export function route_manage(req, res)
+export async function route_manage(req, res)
 {
     if (is_authenticated(req, 2)) // manager
     {
-        let assigned_stations = poll_assigned_stations_for_manager(req.session.username);
+        let assigned_stations = await poll_assigned_stations_for_manager(req.session.username);
+        console.log(assigned_stations);
         let selected_station = req.session.selected_station;
         let update_successful = req.session.update_successful;
         if (update_successful === false) // hotfix for handlebars
@@ -53,12 +55,6 @@ export function route_update_points(req, res)
     let points = req.body.points;
     req.session.update_successful = update_user_points(user_number, points);
     res.redirect("manage");
-}
-
-function poll_assigned_stations_for_manager(username)
-{
-    // todo DB
-    return ["Able", "Charlie"];
 }
 
 function poll_fuel_prices_for_station(station_name)

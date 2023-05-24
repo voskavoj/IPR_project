@@ -12,6 +12,7 @@ import {route_station_list} from "./server/station_list.mjs";
 import {route_index} from "./server/index.mjs";
 import {route_contact_form, route_contacts, route_products, route_station_404} from "./server/static_pages.mjs";
 import {section_helper} from "./server/templates.mjs";
+import {database_init} from "./server/database/database.mjs";
 
 // Server setup
 const app = express()
@@ -51,4 +52,5 @@ router.route("/update_points").post(route_update_points);
 router.route("/contact_form").post(route_contact_form);
 
 // Server start
+database_init();
 const server = app.listen(port, () => { console.log(`http://127.0.0.1:${port}`) });
