@@ -19,10 +19,10 @@
 <div>
     Update user points
     <form method="POST" action="/update_points">
-        <label for="user_number">
+        <label for="username">
             User no:
         </label>
-        <input type="text" name="user_number" placeholder="User no." id="user_number" required>
+        <input type="text" name="username" placeholder="User no." id="username" required>
         <label for="points">
             Points
         </label>
@@ -50,12 +50,12 @@
         {{#if selected_station}}
             <form method="POST" action="/update_prices">
 
-                <label for="station">Station:</label>
-                <input type="text" id="station" name="station" value="{{selected_station}}" disabled>
+                <label for="station_name">Station:</label>
+                <input type="text" id="station_name" name="station_name" value="{{selected_station}}" readonly>
 
                 {{#each fuel_types}}
                     <label for={{@key}}>New price for {{@key}}:</label>
-                    <input type="number" name="{{@key}}" value={{this}} id={{@key}} required>
+                    <input type="number" step="0.001" min="0" name="{{@key}}" value={{this}} id={{@key}} required>
                 {{/each}}
                 <input type="submit" value="Submit">
 

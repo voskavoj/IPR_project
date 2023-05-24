@@ -1,12 +1,15 @@
 import {is_authenticated} from "./authentication.mjs";
-import {poll_assigned_stations_for_manager} from "./database/database.mjs";
+import {
+    poll_assigned_stations_for_manager, poll_fuel_prices_for_station, poll_points_for_user,
+    update_station_with_new_prices,
+    update_user_points
+} from "./database/database.mjs";
 
 export async function route_manage(req, res)
 {
     if (is_authenticated(req, 2)) // manager
     {
         let assigned_stations = await poll_assigned_stations_for_manager(req.session.username);
-        console.log(assigned_stations);
         let selected_station = req.session.selected_station;
         let update_successful = req.session.update_successful;
         if (update_successful === false) // hotfix for handlebars
@@ -14,7 +17,7 @@ export async function route_manage(req, res)
         req.session.update_successful = null;
         let fuel_types = null;
         if (selected_station)
-            fuel_types = poll_fuel_prices_for_station(selected_station);
+            fuel_types = await poll_fuel_prices_for_station(selected_station);
 
         res.render("manager", {
             update_successful: update_successful,
@@ -25,7 +28,7 @@ export async function route_manage(req, res)
     }
     else if (is_authenticated(req, 1)) // user
     {
-        let user_points = poll_points_for_user(req.session.username);
+        let user_points = await poll_points_for_user(req.session.username);
         res.render("user", {username: req.session.username,
             user_points: user_points});
     }
@@ -39,44 +42,26 @@ export function route_update_select_station(req, res)
     res.redirect("manage");
 }
 
-export function route_update_prices(req, res)
+export async function route_update_prices(req, res)
 {
-    let station_name = req.body.station;
+    let station_name = req.body.station_name;
     let new_prices = {"n95": req.body.n95,
                       "diesel": req.body.diesel};
 
-    req.session.update_successful = update_station_with_new_prices(station_name, new_prices);
+    req.session.update_successful = await update_station_with_new_prices(station_name, new_prices);
     res.redirect("manage");
 }
 
-export function route_update_points(req, res)
+export async function route_update_points(req, res)
 {
-    let user_number = req.body.user_number;
-    let points = req.body.points;
-    req.session.update_successful = update_user_points(user_number, points);
+    let username = req.body.username;
+    let points = Number(req.body.points);
+    req.session.update_successful = await update_user_points(username, points);
     res.redirect("manage");
 }
 
-function poll_fuel_prices_for_station(station_name)
-{
-    // todo DB
-    return {"n95": 5, "diesel": 4};
-}
 
-function poll_points_for_user(username)
-{
-    // todo DB
-    return 324;
-}
 
-function update_station_with_new_prices(station, new_prices)
-{
-    // todo DB
-    return true;
-}
 
-function update_user_points(user_no, additional_points)
-{
-    // todo DB
-    return false; // false just for testing
-}
+
+
