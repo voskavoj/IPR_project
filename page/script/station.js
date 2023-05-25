@@ -1,9 +1,10 @@
-const dataMapData = document.querySelector("#map-data")
+const dataMapData = document.querySelector("#map-data");
+const spanGps = document.querySelector("#gps");
 let map;
 
 function copy_gps_to_clipboard()
 {
-    navigator.clipboard.writeText(active_station._compose_gps());
+    navigator.clipboard.writeText(spanGps.innerHTML);
 }
 
 function on_page_load()
