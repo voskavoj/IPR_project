@@ -14,6 +14,7 @@ export async function database_init()
         filename,
         driver: sqlite3.Database
     });
+    await poll_station("fff");
 }
 
 // MANAGEMENT
@@ -130,4 +131,27 @@ export async function add_new_user(username, password)
         console.log(err);
         return false;
     }
+}
+
+// STATIONS
+
+export async function poll_station(station_name)
+{
+    const cmd = await database.prepare('SELECT * FROM stations WHERE name=?');
+    let ret = await cmd.get(station_name);
+    if (ret === undefined)
+        return undefined;
+
+    return new Station(ret);
+}
+
+export async function poll_all_stations()
+{
+    const cmd = await database.prepare('SELECT * FROM stations ORDER BY name');
+    let ret = await cmd.all();
+
+    let station_list = []
+    for (const row of ret)
+        station_list.push(new Station(row));
+    return station_list;
 }

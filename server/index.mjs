@@ -1,8 +1,8 @@
-import {poll_all_stations} from "./station_list.mjs";
+import {poll_all_stations} from "./database/database.mjs";
 
-export function route_index(req, res)
+export async function route_index(req, res)
 {
-    let station_list = poll_all_stations();
+    let station_list = await poll_all_stations();
     res.render("index", {map_data: JSON.stringify(generate_map_data(station_list)),
                          prices: calculate_average_fuel_price(station_list)});
 }
