@@ -10,7 +10,7 @@ import {route_manage, route_update_select_station, route_update_prices, route_up
 import {route_station} from "./server/station.mjs";
 import {route_station_list} from "./server/station_list.mjs";
 import {route_index} from "./server/index.mjs";
-import {route_contact_form, route_contacts, route_products, route_station_404} from "./server/static_pages.mjs";
+import {route_contacts, route_products, route_station_404} from "./server/static_pages.mjs";
 import {section_helper} from "./server/templates.mjs";
 import {database_init} from "./server/database/database.mjs";
 
@@ -49,7 +49,6 @@ router.route("/auth_register").post(route_register);
 router.route("/update_select_station").post(route_update_select_station);
 router.route("/update_prices").post(route_update_prices);
 router.route("/update_points").post(route_update_points);
-router.route("/contact_form").post(route_contact_form);
 
 // Server start
 await database_init();
