@@ -1,9 +1,11 @@
-export function route_auth(req, res)
+import {add_new_user, authenticate_user, is_username_available} from "./database/database.mjs";
+
+export async function route_auth(req, res)
 {
     let username = req.body.username;
     let password = req.body.password;
 
-    let auth_level = authenticate_user(username, password);
+    let auth_level = await authenticate_user(username, password);
 
     if (auth_level)
     {
@@ -23,29 +25,6 @@ function log_in_user(req, username, auth_level)
     req.session.auth_level = auth_level;
     req.session.username = username;
     req.session.invalid_login_attempt = false;
-}
-
-/**
- * Search database for username, password combination
- *
- * Return level of authentication:
- *      0: no user or invalid credentials
- *      1: user
- *      2: manager
- *      3: admin
- * **/
-function authenticate_user(username, password)
-{
-    // todo DB
-
-    if (password === "usr")
-        return 1;
-    else if (password === "man")
-        return 2;
-    else if (password === "adm")
-        return 3;
-    else
-        return 0;
 }
 
 export function route_login(req, res)
@@ -71,14 +50,14 @@ export function is_authenticated(req, required_level=1)
     return (req.session.is_authenticated && req.session.auth_level >= required_level)
 }
 
-export function route_register(req, res)
+export async function route_register(req, res)
 {
     let username = req.body.username;
     let password = req.body.password;
 
-    if (is_username_available(username))
+    if (await is_username_available(username))
     {
-        if (add_new_user(username, password)) // add to DB ok
+        if (await add_new_user(username, password)) // add to DB ok
         {
             req.session.invalid_login_attempt = false;
             log_in_user(req, username, 1);
@@ -96,19 +75,4 @@ export function route_register(req, res)
         req.session.invalid_login_attempt = true;
         res.redirect("login");
     }
-}
-
-function is_username_available(username)
-{
-    // todo DB
-    if (username === "reserved") // testing
-        return false
-
-    return true
-}
-
-function add_new_user(username, password)
-{
-    // todo DB
-    return true;
 }

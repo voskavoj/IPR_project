@@ -52,5 +52,5 @@ router.route("/update_points").post(route_update_points);
 router.route("/contact_form").post(route_contact_form);
 
 // Server start
-database_init();
+await database_init();
 const server = app.listen(port, () => { console.log(`http://127.0.0.1:${port}`) });

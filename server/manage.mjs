@@ -59,9 +59,3 @@ export async function route_update_points(req, res)
     req.session.update_successful = await update_user_points(username, points);
     res.redirect("manage");
 }
-
-
-
-
-
-
