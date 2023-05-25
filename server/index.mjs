@@ -16,7 +16,7 @@ function generate_map_data(station_list)
 
     for (const station of station_list)
     {
-        map_data.additional_points.push({gps: station.gps, name: station.name});
+        map_data.additional_points.push({gps: station.gps, name: station.name, is_open: station._is_open});
     }
 
     return map_data;

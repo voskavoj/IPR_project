@@ -55,7 +55,7 @@ function get_closest_station()
     for (const station of stations)
     {
         let distance = user_position.distanceTo(station.gps);
-        if (distance < closest_gs_distance)
+        if (distance < closest_gs_distance && station.is_open)
         {
             closest_gs = station;
             closest_gs_distance = distance;

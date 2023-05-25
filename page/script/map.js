@@ -6,6 +6,7 @@ class Map
         this.map.addLayer(new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'));
         this.markers = [];
 
+        this.add_marker(map_data.center);
         for (const point of map_data.additional_points)
         {
             this.add_marker(point.gps, point.name);
