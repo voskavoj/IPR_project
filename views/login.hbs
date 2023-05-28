@@ -1,36 +1,46 @@
 {{#section 'head'}}
     <title>Login form</title>
+    <link href="style/login.css" rel="stylesheet">
 {{/section}}
 
 
 {{#if invalid_attempt}}Invalid username or password{{/if}}
 
-<div>
+<h2> Log In as User / Manager</h2>
+
+<div class="container">
     <h3>Log in</h3>
     <form method="POST" action="/auth">
+        <fieldset>
         <label for="username">
             Username:
         </label>
-        <input type="text" name="username" placeholder="Username" id="username" required>
+        <input class="info" type="text" name="username" placeholder="Username" id="username" required>
         <label for="password">
             Password
         </label>
-        <input type="password" name="password" placeholder="Password" id="password" required>
-        <input type="submit" value="Log In">
+        <input class="info" type="password" name="password" placeholder="Password" id="password" required>
+        
+        </fieldset>
+       <input class="submit" type="submit" value="Log In"> 
     </form>
 </div>
-
+<br>
+<br>
 <div>
     <h3>Register</h3>
     <form method="POST" action="/auth_register">
-        <label for="username">
+        <fieldset>
+           <label for="username">
             Username:
         </label>
-        <input type="text" name="username" placeholder="Username" id="username" required>
+        <input class="info" type="text" name="username" placeholder="Username" id="username" required>
         <label for="password">
             Password
         </label>
-        <input type="password" name="password" placeholder="Password" id="password" required>
-        <input type="submit" value="Register">
+        <input class="info" type="password" name="password" placeholder="Password" id="password" required>
+        </fieldset>
+      <input class="submit" type="submit" value="Register">   
     </form>
 </div>
+

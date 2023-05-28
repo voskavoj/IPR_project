@@ -10,7 +10,7 @@ export async function route_auth(req, res)
     if (auth_level)
     {
         log_in_user(req, username, auth_level);
-        res.redirect('/index');
+        res.redirect('/manage');
     }
     else
     {
@@ -30,7 +30,7 @@ function log_in_user(req, username, auth_level)
 export function route_login(req, res)
 {
     if (is_authenticated(req))
-        res.redirect('/index');
+        res.redirect('/manage');
     else
     {
         res.render("login", {invalid_attempt: req.session.invalid_login_attempt});
