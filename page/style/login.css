@@ -1,0 +1,56 @@
+body {
+    color: #333;
+    margin: 0;
+    font: 1em / 1 Arial, Helvetica, sans-serif;
+}
+
+.container {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5em;
+}
+
+h3 {
+    margin: 1em;
+    margin-bottom: 1em;
+}
+
+fieldset {
+    margin-bottom: 1em;
+    border:none;
+}
+
+.submit {
+    margin-left: 1em;
+}
+
+input {
+    margin-bottom: 0.5em;
+    padding: 7px;
+}
+
+.info {
+    margin-bottom: 0.5em;
+    padding: 7px;
+    width: 30%;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+.form-double-colspan {
+    grid-column: 1 / -1;
+}
+.form-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+}

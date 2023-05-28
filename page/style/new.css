@@ -35,12 +35,12 @@ body {
     align-items: center;    /* vertically */
     z-index: 9999;
 }
-
+/*
 nav {
     background-color: white;
     z-index: 1;
 }
-
+*/
 button {
     margin: 40px;
 }

@@ -4,34 +4,39 @@
     <head>
         <meta charset="UTF-8">
         <link href="style/common.css" rel="stylesheet">
-        <link href="style/experiment.css" rel="stylesheet">
+        <link href="style/index.css" rel="stylesheet">
         {{{_sections.head}}}
     </head>
 
     <body>
     <nav>
-        <ul>
-            <li>
+        <ul class="nav_bar">
+            <li class="nav_bar">
                 <a href="index"> Home Page </a>
             </li>
-            <li>
+            <li class="nav_bar">
                 <a href="station_list"> Gas Stations List</a>
             </li>
-            <li>
+            <li class="nav_bar">
                 <a href="products"> Products & Services</a>
             </li>
-            <li>
+            <li class="nav_bar">
                 <a href="contacts">Contact us</a>
             </li>
-            <li>
-                <a href="manage">Manage</a>
+            {{#if username}}
+            <li class = "nav-item">
+                <a href="/manage">My Account</a>
             </li>
-            <li>
+            {{else}}
+            <li class="nav_bar">
                 <a href="login">Log in</a>
             </li>
-            <li>
-                <a href="logout">Log out</a>
+            {{/if}}
+            {{#if username}}
+            <li class = "nav-item">
+                <a href="/logout">Log out</a>
             </li>
+            {{/if}}
         </ul>
     </nav>
         <div class="container">

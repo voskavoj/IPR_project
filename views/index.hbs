@@ -1,6 +1,6 @@
 {{#section 'head'}}
     <title>FakeOil</title>
-    <link href="style/experiment.css" rel="stylesheet">
+    <link href="style/index.css" rel="stylesheet">
     <link
             rel="stylesheet"
             href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
@@ -9,40 +9,38 @@
 {{/section}}
 
 
-	<div class="container">
+	<div>
         <div class="header">
-            <div class="logo">Logo</div>
+            <div class="logo"><h1>Patras Oil</h1></div>
             <div class="register">
-                <button>Sign in/Register</button>
+                <button onclick="window.location.href = 'login'">{{#if username}}View account{{else}}Login/Register{{/if}}</button>
             </div>           
         </div>
         <div class="main-content">
-          <div class="left-sidebar">Left Sidebar</div>
+          <div class="left-sidebar"></div>
           <div class="right-content">
             <div class="top-right">
                 <div class="top-right-left">
                     <div id="map"></div>
                 </div>
                 <div class ="top-right-right">
-                    <table>
                         {{#with prices}}
-                        <caption> Price Table</caption>
-                        <tr>
-                            <th>Gas Type</th>
-                            <th> Price </th>
-                        </tr>
-                        <tr>
-                            <td> N95</td>
-                            <td> {{n95}}</td>
-                        </tr>
-                        <td>
-                            Diesel
-                        </td>
-                        <td>
-                            {{diesel}}
-                        </td>
+                        <table>
+                            <caption><h3>Price Table</h3></caption>
+                            <tr>
+                              <th>Gas Type</th>
+                              <th>Price</th>
+                            </tr>
+                            <tr>
+                              <td>N95</td>
+                              <td>{{n95}}</td>
+                            </tr>
+                            <tr>
+                              <td>Diesel</td>
+                              <td>{{diesel}}</td>
+                            </tr>
+                          </table>
                         {{/with}}
-                    </table>
                 </div>
             </div>
             <div class="bottom-right">
@@ -50,8 +48,14 @@
                 <button id="btn-find-nearest-gs">Go to my nearest station!</button>
               </div>
               <div class="bottom-right-right">
-                <p> Get Offer Now!</p>
-                <p> Upgrade to Premium!</p>
+                {{#if username}}
+                  <h1 class="banner">Hello, {{username}}!</h1>
+                  {{#if user_points}}
+                  <p id="us_points">You have {{user_points}} points</p>
+                  {{/if}}
+                {{else}}
+                  <h2 class="banner"> Join our Premium Program!<br> Register Now!</h2>
+                {{/if}}
               </div>
             </div>
           </div>

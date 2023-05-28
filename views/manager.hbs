@@ -1,10 +1,12 @@
 {{#section 'head'}}
     <title>Manager view</title>
+    <link href="style/manager.css" rel="stylesheet">
 {{/section}}
 
 <div>
     <h2>Welcome, {{username}}</h2>
 </div>
+
 
 {{#if update_successful includeZero=true}}
     <div>
@@ -17,39 +19,45 @@
 {{/if}}
 
 <div>
-    Update user points
+    <h4>Update user points</h4>
+    <br><br>
     <form method="POST" action="/update_points">
+        <fieldset>
         <label for="username">
             Username:
         </label>
         <input type="text" name="username" placeholder="Username" id="username" required>
         <label for="points">
-            Points
+            Points:
         </label>
         <input type="number" name="points" placeholder="0" id="points" required>
-        <input type="submit" value="Submit">
+        </fieldset>
+        <input class="submit" type="submit" value="Submit">
     </form>
-
 </div>
-
+<br><br>
 <div>
-    Update prices
+    <h4>Update prices</h4>
+    <br><br>
     <div>
         <form method="POST" action="/update_select_station">
+            <fieldset>
             <label for="station">Station:</label>
-
             <select id="station" name="station">
                 {{#each assigned_stations}}
                 <option value={{this}}>{{this}}</option>
                 {{/each}}
             </select>
-            <input type="submit" value="Select">
+
+            </fieldset>
+            <input class="submit" type="submit" value="Select">
         </form>
     </div>
+    <br><br>
     <div>
         {{#if selected_station}}
             <form method="POST" action="/update_prices">
-
+                <div>
                 <label for="station_name">Station:</label>
                 <input type="text" id="station_name" name="station_name" value="{{selected_station}}" readonly>
 
@@ -57,8 +65,8 @@
                     <label for={{@key}}>New price for {{@key}}:</label>
                     <input type="number" step="0.001" min="0" name="{{@key}}" value={{this}} id={{@key}} required>
                 {{/each}}
+                </div>
                 <input type="submit" value="Submit">
-
             </form>
         {{/if}}
     </div>

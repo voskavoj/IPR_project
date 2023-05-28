@@ -18,12 +18,12 @@
         </tr>
         {{#each stations}}
             <tr class="item-station">
-                <td><a href="station?station={{name}}">{{{open_tick}}}</a></td>
-                <td><a href="station?station={{name}}">{{name}}</a></td>
-                <td><a href="station?station={{name}}">{{region}}</a></td>
-                <td><a href="station?station={{name}}">{{prices.n95}}</a></td>
-                <td><a href="station?station={{name}}">{{prices.diesel}}</a></td>
-                <td><a href="station?station={{name}}">{{opening_hours}}</a></td>
+                <td><a class="station" href="station?station={{name}}">{{{open_tick}}}</a></td>
+                <td><a class="station" href="station?station={{name}}">{{name}}</a></td>
+                <td><a class="station" href="station?station={{name}}">{{region}}</a></td>
+                <td><a class="station" href="station?station={{name}}">{{prices.n95}}</a></td>
+                <td><a class="station" href="station?station={{name}}">{{prices.diesel}}</a></td>
+                <td><a class="station" href="station?station={{name}}">{{opening_hours}}</a></td>
             </tr>
         {{/each}}
     </table>

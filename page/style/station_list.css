@@ -24,7 +24,7 @@ td a {
     display:block;
 }
 
-a:link, a:visited, a:hover, a:active {
+.station {
     text-decoration: none;
     color: #0465aa;
 }

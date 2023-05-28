@@ -1,12 +1,21 @@
 import {poll_all_stations} from "./database/database.mjs";
+import {is_authenticated} from "./authentication.mjs";
+import {poll_points_for_user} from "./database/database.mjs";
 
 export async function route_index(req, res)
-{
-    let station_list = await poll_all_stations();
-    res.render("index", {map_data: JSON.stringify(generate_map_data(station_list)),
+{   
+    if(is_authenticated(req, 1)||is_authenticated(req, 2)) {
+        let user_points = await poll_points_for_user(req.session.username);
+        let station_list = await poll_all_stations();
+        res.render("index", {map_data: JSON.stringify(generate_map_data(station_list)),
+                         prices: calculate_average_fuel_price(station_list), username: req.session.username, user_points: user_points});
+    }
+    else {
+        let station_list = await poll_all_stations();
+        res.render("index", {map_data: JSON.stringify(generate_map_data(station_list)),
                          prices: calculate_average_fuel_price(station_list)});
+    }
 }
-
 
 function generate_map_data(station_list)
 {
