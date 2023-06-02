@@ -33,7 +33,7 @@ body {
   border-radius: 1em;
   color: #f2f2f2;
   margin: 1em;
-
+max-width: 50%;
 }
 
 .top-right-left p, h3 {
@@ -49,7 +49,9 @@ body {
   margin-top: 1em;
 }
 img{
+    display: flex;
   border-radius: 1em;
+    max-width: 100%;
 }
 
 
